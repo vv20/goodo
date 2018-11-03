@@ -1,4 +1,13 @@
 extends layout
+include templates/project
 
 block content
-    p a
+    .container
+        h1.text-center Your Projects
+        br
+        .projects
+            // Get all projects from backend, and put into project mixins w/ js
+            +project("Project 1", 10, 100)
+            +project("Project 2", "10", "100")
+            +project("Project 3", "10", "100")
+            +project("Project 4", "10", "100")

@@ -1,5 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    .container
+        h1 Welcome to #{title}
+        h3 The number one place* to make notes and mind maps
+        p *don't quote us on that
+        br
+        +a-btn-primary('/projects') Go to your projects
