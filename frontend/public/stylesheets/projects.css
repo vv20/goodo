@@ -28,3 +28,9 @@ h1, h2 {
     padding: 10px;
     min-width: 145px;
 }
+
+.float-left.d-inline {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: first;
+}
