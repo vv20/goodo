@@ -11,7 +11,7 @@ router.get('/:id', function (req, res, next) {
         const data = value[1];
         console.log(JSON.stringify(value));
         res.render('projectPage', {
-            title: 'Project',
+            title: 'Project '+ req.params.id,
             id: req.params.id,
             options: JSON.stringify(options),
             data: JSON.stringify(data)

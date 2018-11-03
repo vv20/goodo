@@ -1,0 +1,8 @@
+mixin flashCard(flashCardID, flashCardName, flashCardQuestion, flashCardAnswer)
+    .flash-card
+        .fc-question
+            h3 Q: #{flashCardQuestion}
+        .fc-answer.hidden
+            h4 A: #{flashCardAnswer}
+        .fc-button
+            +btn-info("See answer")

@@ -1,7 +1,20 @@
 extends layout
 
+append head
+    link(rel="stylesheet" href="/stylesheets/flashcard.css")
+    link(rel='stylesheet', href='/stylesheets/projects.css')
+
 block content
-    if true
-        include projectMindmap
-    else
-        include projectList
+    .container
+        .float-left.d-inline
+            a(href="/projects").d-inline Back to project list
+        .float-right.d-inline
+            h1.text-center.d-inline #{title}
+        if false
+            include projectMindmap
+        else
+            include projectList
+    br
+
+append scripts
+    script(type='text/javascript', src='/javascripts/flashcard.js')
