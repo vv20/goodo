@@ -6,11 +6,12 @@ append head
 
 block content
     .container
-        .float-left.d-inline
+        .float-left.d-inline(style="justify-contents:")
             a(href="/projects").d-inline Back to project list
+            button.btn.btn-primary#switchbtn Switch View!
         .float-right.d-inline
             h1.text-center.d-inline #{title}
-        if false
+        if mindMap
             include projectMindmap
         else
             include projectList
@@ -18,3 +19,5 @@ block content
 
 append scripts
     script(type='text/javascript', src='/javascripts/flashcard.js')
+    script(type='text/javascript', src='/javascripts/projectSwitch.js')
+

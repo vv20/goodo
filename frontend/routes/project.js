@@ -1,8 +1,17 @@
 var express = require('express');
 var router = express.Router();
 
+router.get('/visual/:id', function (req, res, next) {
+    return res.redirect(`/project/visual/list/${req.params.id}`);
+});
 /* GET home page. */
-router.get('/:id', function (req, res, next) {
+router.get('/visual/list/:id', function (req, res, next) {
+    res.render('projectPage', {
+        title: 'Project ' + req.params.id,
+        mindMap: false
+    })
+});
+router.get('/visual/map/:id', function (req, res, next) {
     return Promise.all([
         getOptions(),
         getGraph(req.params.id)
@@ -11,10 +20,11 @@ router.get('/:id', function (req, res, next) {
         const data = value[1];
         console.log(JSON.stringify(value));
         res.render('projectPage', {
-            title: 'Project '+ req.params.id,
+            title: 'Project ' + req.params.id,
             id: req.params.id,
             options: JSON.stringify(options),
-            data: JSON.stringify(data)
+            data: JSON.stringify(data),
+            mindMap: true
         });
     });
 });
