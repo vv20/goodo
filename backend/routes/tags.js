@@ -7,7 +7,9 @@ var database = require('../database.js');
 router.get('/all', function(req, res, next) {
     database.getAllTags(req.params.pid).then(function(tags) {
         res.send(tags);
-    })
+    }).catch(function (err) {
+        next(err);
+    });
     // res.send('Getting all tags from project with pid: ' + req.params.pid);
 });
 
@@ -15,7 +17,9 @@ router.get('/all', function(req, res, next) {
 router.get('/:tid', function(req, res, next) {
     database.getTag(req.params.pid, req.params.tid).then(function(tag) {
         res.send(tag);
-    })
+    }).catch(function (err) {
+        next(err);
+    });
     // res.send('Getting tag with tid: ' + req.params.tid + ' from project with pid: ' + req.params.pid);
 });
 
@@ -23,7 +27,9 @@ router.get('/:tid', function(req, res, next) {
 router.get('/:tid/all', function(req, res, next) {
     database.getFlashcardsByTag(req.params.pid, req.params.tid).then(function(flashcards) {
         res.send(flashcards);
-    })
+    }).catch(function (err) {
+        next(err);
+    });
     // res.send('Getting all flashcards from tag with tid: ' + req.params.tid + ' from project with pid: ' + req.params.pid);
 });
 
@@ -31,12 +37,16 @@ router.get('/:tid/all', function(req, res, next) {
 
 /* POST new tag */
 router.post('/', function(req, res, next) {
-    database.makeTag(req.params.pid, req.body.id, req.body.name);
-    res.send('Updating tag from project with pid: ' + req.params.pid + ' - \n' +
-        '  "tag": {\n' +
-        '    "id": ' + req.body.id + ',\n' +
-        '    "name": ' + req.body.name + '\n' +
-        '  },');
+    database.makeTag(req.params.pid, req.body.id, req.body.name).then(function() {
+        res.send("success");
+    }).catch(function (err) {
+        next(err);
+    });
+    // res.send('Updating tag from project with pid: ' + req.params.pid + ' - \n' +
+    //     '  "tag": {\n' +
+    //     '    "id": ' + req.body.id + ',\n' +
+    //     '    "name": ' + req.body.name + '\n' +
+    //     '  },');
 });
 
 module.exports = router;
