@@ -28,8 +28,8 @@ router.get('/:pid', function(req, res, next) {
 
 /* POST new project */
 router.post('/', function(req, res, next) {
-    database.makeProject(req.body.name).then(function() {
-        res.send("success");
+    database.makeProject(req.session.username, req.body.name).then(function() {
+        res.send(200);
     }).catch(function (err) {
         next(err);
     });
@@ -44,7 +44,7 @@ router.post('/', function(req, res, next) {
 /* PUT new link between flashcard and tag */
 router.put('/link', function(req, res, next) {
     database.linkFlashcardToTag(req.body.tid, req.body.fid).then(function() {
-        res.send("success");
+        res.send(200);
     }).catch(function (err) {
         next(err);
     });
@@ -58,7 +58,7 @@ router.put('/link', function(req, res, next) {
 /* PUT new link between project and playlist */
 router.put('/playlist', function(req, res, next) {
     database.linkProjectToPlaylist(req.body.pid, req.body.playlistId).then(function() {
-        res.send("success");
+        res.send(200);
     }).catch(function (err) {
         next(err);
     });

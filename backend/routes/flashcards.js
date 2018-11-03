@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router({ mergeParams: true});
-// var database = require('../database.js');
+var database = require('../database.js');
 
 
 /* GET flashcard for specific fid */
@@ -17,8 +17,8 @@ router.get('/:fid', function(req, res, next) {
 
 /* POST new flashcard */
 router.post('/', function(req, res, next) {
-    database.makeFlashcard(req.params.pid, req.body.id, req.body.title, req.body.content).then(function() {
-        res.send("success");
+    database.makeFlashcard(req.params.pid, req.body.title, req.body.content).then(function() {
+        res.send(200);
     }).catch(function (err) {
         next(err);
     });

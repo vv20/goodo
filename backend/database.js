@@ -1,7 +1,7 @@
 var Sequelize = require("sequelize");
 var fs = require("fs");
 var db;
-const dev = true;
+const dev = false;
 
 var User;
 var Project;
@@ -133,7 +133,7 @@ exports.getAllProjects = function(username) {
 exports.getProject = function(pid) {
     return Project.find({
         where: {
-            project_id: pid
+            project_id: parseInt(pid)
         }
     });
 }
@@ -141,7 +141,7 @@ exports.getProject = function(pid) {
 exports.getAllTags = function(pid) {
     return Tag.findAll({
         where: {
-            project_id: pid
+            project_id: parseInt(pid)
         }
     });
 }
@@ -149,23 +149,24 @@ exports.getAllTags = function(pid) {
 exports.getTag = function(pid, tid) {
     return Tag.find({
         where: {
-            project_id: pid,
-            tag_id: tid
+            project_id: parseInt(pid),
+            tag_id: parseInt(tid)
         }
     });
 }
 
 exports.getFlashcardsByTag = function(tid) {
-    Link.findAll({
+    return Link.findAll({
         where: {
-            tag_id: tid
+            tagTagId: parseInt(tid)
         }
     }).then((links) => {
         promises = [];
-        for (link in links) {
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
             promises.push(Flashcard.find({
                 where: {
-                    flashcard_id: link.flashcard_id
+                    flashcard_id: link.dataValues.flashcardFlashcardId
                 }
             }));
         }
@@ -176,58 +177,70 @@ exports.getFlashcardsByTag = function(tid) {
 exports.getFlashcard = function(pid, fid) {
     return Flashcard.find({
         where: {
-            project_id: pid,
-            flashcard_id: fid
+            project_id: parseInt(pid),
+            flashcard_id: parseInt(fid)
         }
     });
 }
 
-exports.makeProject = function(name) {
-    Project.findOrCreate({
+exports.makeProject = function(username, name) {
+    return Project.findOrCreate({
         where: {project_name: name},
         defaults: {
             project_name:name,
+            username: username,
             playlist_id: null
         }
     });
 }
 
 exports.makeTag = function(pid, name) {
-    Tag.findOrCreate({
+    return Tag.findOrCreate({
         where: {
-            project_id: pid,
+            project_id: parseInt(pid),
             tag_name: name
         }
     });
 }
 
 exports.makeFlashcard = function(pid, title, content) {
-    Flashcard.findOrCreate({
+    return Flashcard.findOrCreate({
         where: {
-            project_id: pid,
-            title: title,
-            content: content
+            project_id: parseInt(pid),
+            flashcard_title: title,
+            flashcard_content: content
         }
     });
 }
 
 exports.linkFlashcardToTag = function(tid, fid) {
-    Link.findOrCreate({
+    return Link.findOrCreate({
         where: {
-            tag_id: tid,
-            flashcard_id: fid
+            tagTagId: parseInt(tid),
+            flashcardFlashcardId: parseInt(fid)
         }
     });
 }
 
 exports.linkProjectToPlaylist = function(pid, playlist_id) {
-    Project.find({
+    return Project.find({
         where: {
-            project_id: pid
+            project_id: parseInt(pid)
         }
     }).then((project) => {
         project.update({
-            playlist_id: playlist_id
+            playlist_id: parseInt(playlist_id)
         });
     });
+}
+
+exports.signup = function (username, password) {
+    return User.create({
+        username: username,
+        password: password
+    })
+}
+
+exports.getUser  = function (username) {
+    return User.findById(username);
 }

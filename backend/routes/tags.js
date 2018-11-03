@@ -37,8 +37,8 @@ router.get('/:tid/all', function(req, res, next) {
 
 /* POST new tag */
 router.post('/', function(req, res, next) {
-    database.makeTag(req.params.pid, req.body.id, req.body.name).then(function() {
-        res.send("success");
+    database.makeTag(req.params.pid, req.body.name).then(function() {
+        res.send(200);
     }).catch(function (err) {
         next(err);
     });
