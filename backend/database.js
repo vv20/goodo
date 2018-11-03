@@ -186,7 +186,7 @@ exports.getFlashcard = function(pid, fid) {
 exports.gatAllFlashcards = function(pid) {
     return Flashcard.findAll({
         where: {
-            project_id: pid
+            project_id: parseInt(pid)
         }
     });
 }
