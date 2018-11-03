@@ -2,6 +2,14 @@ var express = require('express');
 var router = express.Router({ mergeParams: true});
 var database = require('../database.js');
 
+router.get('alldata', function(req, res, next) {
+    database.getAll().then(function(data) {
+        res.send(data);
+    }).catch(function(err) {
+        next(err);
+    });
+});
+
 
 /* GET all projects */
 router.get('/all', function(req, res, next) {

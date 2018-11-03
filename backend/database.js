@@ -122,6 +122,14 @@ read_credentials()
     .then(test_connection, console.error)
     .then(define_model, console.error);
 
+exports.getAll = function() {
+    promises = [];
+    promises.push(Project.findAll());
+    promises.push(Tag.findAll());
+    promises.push(Flashcard.findAll());
+    return Promise.all(promises);
+}
+
 exports.getAllProjects = function(username) {
     return Project.findAll({
         where: {
