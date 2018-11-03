@@ -18,7 +18,7 @@
   },
   //  PUT /project/link
   "link": {
-    "tig": "tagId",
+    "tid": "tagId",
     "fid": "flashcardId"
   }
 

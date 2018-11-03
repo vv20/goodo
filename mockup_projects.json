@@ -1,18 +1,4 @@
 [
-  {
-    "id": "1",
-    "name": "project alpha"
-  },
-  {
-    "id": "2",
-    "name": "project beta"
-  },
-  {
-    "id": "3",
-    "name": "project gamma"
-  },
-  {
-    "id": "4",
-    "name": "project delta"
-  }
+  "1",
+  "2"
 ]
