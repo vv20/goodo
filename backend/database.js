@@ -59,7 +59,7 @@ function define_model(db) {
     // define project
     Project = db.define("project", {
         project_id: {
-            type: Sequelize.STRING, 
+            type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
@@ -77,13 +77,13 @@ function define_model(db) {
     // define tag
     Tag = db.define("tag", {
         tag_id: {
-            type: Sequelize.STRING, 
+            type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         tag_name: Sequelize.STRING,
         project_id: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             references: {
                 model: Project,
                 key: "project_id"
@@ -94,14 +94,14 @@ function define_model(db) {
     // define flashcard
     Flashcard = db.define("flashcard", {
         flashcard_id: {
-            type: Sequelize.STRING, 
+            type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         flashcard_title: Sequelize.TEXT,
         flashcard_content: Sequelize.TEXT,
         project_id: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             references: {
                 model: Project,
                 key: "project_id"
