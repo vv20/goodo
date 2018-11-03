@@ -1,6 +1,7 @@
 extends layout
 
-if true
-    include projectMindmap
-else
-    include projectList
+block content
+    if true
+        include projectMindmap
+    else
+        include projectList
