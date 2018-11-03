@@ -8,7 +8,8 @@
   //  GET /project/<pid>
   "project": {
     "id": "id",
-    "name": "name"
+    "name": "name",
+    "playlist_id": "playlist_id"
   },
   //  GET /project/<pid>/tag/all
   "tags": [

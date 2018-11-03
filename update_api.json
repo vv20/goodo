@@ -20,6 +20,10 @@
   "link": {
     "tig": "tagId",
     "fid": "flashcardId"
+  },
+  // PUT /project/playlist
+  "playlist": {
+      "pid": "projectId",
+      "playlistId": "playlistId"
   }
-
 }
