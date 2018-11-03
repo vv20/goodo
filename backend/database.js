@@ -229,7 +229,7 @@ exports.linkProjectToPlaylist = function(pid, playlist_id) {
         }
     }).then((project) => {
         project.update({
-            playlist_id: parseInt(playlist_id)
+            playlist_id: playlist_id
         });
     });
 }
