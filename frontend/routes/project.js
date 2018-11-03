@@ -4,7 +4,6 @@ var router = express.Router();
 router.get('/visual/:id', function (req, res, next) {
     return res.redirect(`/project/visual/list/${req.params.id}`);
 });
-/* GET home page. */
 router.get('/visual/list/:id', function (req, res, next) {
     res.render('projectPage', {
         title: 'Project ' + req.params.id,
@@ -12,6 +11,7 @@ router.get('/visual/list/:id', function (req, res, next) {
     })
 });
 router.get('/visual/map/:id', function (req, res, next) {
+
     return Promise.all([
         getOptions(),
         getGraph(req.params.id)
@@ -142,5 +142,6 @@ const getOptions = () => {
         }
     });
 };
+
 
 module.exports = router;

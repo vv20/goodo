@@ -9,17 +9,20 @@ block content
         h1.text-center Your Projects
         br
         .projects
-            - var numProjects = 1
-            case numProjects
+
+            case projects.length
                 when 0
                     h1.text-center You appear to have no projects
                     br
                 default
+                    each project in projects
+                        +project(project.id, project.name, project.tagsLength, project.flashcardsLength)
+
                     // Get all projects from backend, and put into project mixins
-                    +project(1, "Project 1", 10, 100)
-                    +project(2, "Project 2", 10, 100)
-                    +project(3, "Project 3", 10, 100)
-                    +project(123, "Project 123", 10, 100)
+                    //+project(1, "Project 1", 10, 100)
+                    //+project(2, "Project 2", 10, 100)
+                    //+project(3, "Project 3", 10, 100)
+                    //+project(123, "Project 123", 10, 100)
         br
         .buttons.text-center
             button.btn.btn-success(data-toggle="modal", data-target="#newProjectModal") Create new project
