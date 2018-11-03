@@ -2,7 +2,6 @@
   /* ------------- UPDATE ------------- */
   //  POST /project/
   "project": {
-    "id": "id",
     "name": "name"
   },
   //  POST /project/<pid>/tag/
