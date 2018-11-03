@@ -1,22 +1,25 @@
 var express = require('express');
-var router = express.Router();
+var router = express.Router({ mergeParams: true, mergeBody: true});
+// var database = require('../database.js');
+
+
+router.post('/signup', authenticate, function (req, res, next) {
+    res.send('Signup - \n' +
+        '  "signupDetails": {\n' +
+        '    "username": ' + req.body.username + ',\n' +
+        '    "password": ' + req.body.password + '\n' +
+        '  }');
+});
 
 
 router.post('/login', authenticate, function (req, res, next) {
     res.send('Login - \n' +
         '  "loginDetails": {\n' +
-        '    "username": "username",\n' +
-        '    "password": "hunter2"\n' +
+        '    "username": ' + req.body.username + ',\n' +
+        '    "password": ' + req.body.password + '\n' +
         '  },');
 });
 
-router.post('/signup', authenticate, function (req, res, next) {
-    res.send('Signup - \n' +
-        '  "signupDetails": {\n' +
-        '    "username": "username",\n' +
-        '    "password": "hunter2"\n' +
-        '  }');
-});
 
 router.post('/signout', authenticate, function (req, res, next) {
     req.session.destroy();
@@ -26,7 +29,7 @@ router.post('/signout', authenticate, function (req, res, next) {
 
 function authenticate(req, res, next) {
     // if login.yes = true
-    req.session.username = "mr yeet";
+    req.session.username = req.body.username;
     return next();
 }
 
