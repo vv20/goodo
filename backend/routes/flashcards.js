@@ -3,6 +3,16 @@ var router = express.Router({ mergeParams: true});
 var database = require('../database.js');
 
 
+/* GET all flashcards for a specific pid */
+router.get('/:fid', function(req, res, next) {
+    database.gatAllFlashcards(req.params.pid).then(function(flashcards) {
+        res.send(flashcards);
+    }).catch(function (err) {
+        next(err);
+    });
+    // res.send('Getting flashcard with fid: ' + req.params.fid + ' from project with pid: ' + req.params.pid);
+});
+
 /* GET flashcard for specific fid */
 router.get('/:fid', function(req, res, next) {
     database.getFlashcard(req.params.pid, req.params.fid).then(function(flashcard) {
