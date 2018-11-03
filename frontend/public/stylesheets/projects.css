@@ -11,10 +11,20 @@ body {
     background-color: lightskyblue !important;
 }
 
+.panel-heading:hover {
+    cursor: pointer;
+}
+
 a, a:hover {
     color: #fff;
 }
 
 h1, h2 {
     font-weight: bold;
+}
+
+.btn {
+    margin: 0px 10px;
+    padding: 10px;
+    min-width: 145px;
 }
