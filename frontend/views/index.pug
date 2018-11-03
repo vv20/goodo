@@ -1,10 +1,14 @@
 extends layout
 
+append head
+    link(rel='stylesheet', href='/stylesheets/projects.css')
+    link(rel='stylesheet', href='/stylesheets/index.css')
+
 block content
     .container
         h1 Welcome to #{title}
         h3 The number one place* to make notes and mind maps
         p *don't quote us on that
-        br
         .text-center
+            br
             +a-btn-primary('/projects') Go to your projects

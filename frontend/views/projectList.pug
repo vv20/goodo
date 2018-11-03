@@ -1,1 +1,7 @@
-block content
+include ./templates/accordionTag
+
+block projectList
+    h2.text-center Tags in project
+    br
+    .tag-accordion.text-center
+        +accordionTag(1, "Countries")

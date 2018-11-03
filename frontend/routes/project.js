@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/:id', function (req, res, next) {
-    res.render('projectPage', {title: 'Project', id: req.params.id});
+    res.render('projectPage', {title: 'Project '+req.params.id, id: req.params.id});
 });
 
 module.exports = router;

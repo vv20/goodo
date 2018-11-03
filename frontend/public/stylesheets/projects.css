@@ -1,7 +1,20 @@
+body {
+    background-image: url("../images/beachBg.jpg");
+    background-size: cover;
+}
+
 .panel-clickable[data-href]{
     cursor: pointer !important;
 }
 
 .panel-info:hover > .panel-heading {
     background-color: lightskyblue !important;
+}
+
+a, a:hover {
+    color: #fff;
+}
+
+h1, h2 {
+    font-weight: bold;
 }

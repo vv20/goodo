@@ -1,0 +1,8 @@
+.flash-card {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.flash-card:nth-child(odd) {
+    background-color: lightgrey;
+}

@@ -15,11 +15,23 @@ block content
                     h1.text-center You appear to have no projects
                     br
                 default
-                    // Get all projects from backend, and put into project mixins w/ j
+                    // Get all projects from backend, and put into project mixins
                     +project(1, "Project 1", 10, 100)
                     +project(2, "Project 2", 10, 100)
                     +project(3, "Project 3", 10, 100)
-                    +project(4, "Project 4", 10, 100)
+                    +project(123, "Project 123", 10, 100)
+        br
+        .buttons.text-center
+            button.btn.btn-success(data-toggle="modal", data-target="#newProjectModal") Create new project
+            +modal("New Project", "newProjectModal")
+                form(method='POST' action='/project')
+                    .form-group
+                        label(for='title') Title
+                        input#title.form-control(type='text', placeholder='name', name='name')
+                    br
+                    button.btn.btn-success(type='submit') Create Project
+        br
+
 
 append scripts
     script(type='text/javascript', src='/javascripts/project.js')

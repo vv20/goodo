@@ -1,0 +1,20 @@
+include ./accordionFlashCard
+
+mixin accordionTag(tagID, tagName, flashCards)
+    .accordion-item
+        +accordion(tagName)
+            +accordion-item-primary(tagName, tagName)
+                +flashCard(1, "Testcard", "What is the capital of the UK?What is the capital of the UK?What is the capital of the UK?What is the capital of the UK?What is the capital of the UK?What is the capital of the UK?What is the capital of the UK?", "London")
+                +flashCard(2, "Testcard2", "What is the capital of France?", "Paris")
+                +flashCard(1, "Testcard", "What is the capital of Scotland?", "Edinburgh")
+                +flashCard(2, "Testcard2", "What is the capital of Germany?", "Berlin")
+
+    .modals.text-center
+        button.btn.btn-success(data-toggle="modal", data-target="#newTagModal") Add new tag
+        +modal("New Project", "newTagModal")
+            form(method='POST' action='/project')
+                .form-group
+                    label(for='title') Tag Name
+                    input#title.form-control(type='text', placeholder='Please enter a name for your tag', name='name')
+                br
+                button.btn.btn-success(type='submit') Create Project
