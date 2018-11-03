@@ -3,6 +3,12 @@ var fs = require("fs");
 var db;
 const dev = true;
 
+var User;
+var Project;
+var Tag;
+var Flashcard;
+var Link;
+
 function read_credentials() {
     return new Promise((resolve, reject) => {
         fs.readFile("db_credentials.json", (err, data) => {
@@ -42,13 +48,13 @@ function test_connection(db) {
 
 function define_model(db) {
     // define user
-    const User = db.define("user", {
+    User = db.define("user", {
         username: {type: Sequelize.STRING, primaryKey: true},
         password: Sequelize.STRING
     });
 
     // define project
-    const Project = db.define("project", {
+    Project = db.define("project", {
         project_id: {type: Sequelize.STRING, primaryKey: true},
         project_name: Sequelize.STRING,
         playlist_id: Sequelize.STRING,
@@ -62,7 +68,7 @@ function define_model(db) {
     });
 
     // define tag
-    const Tag = db.define("tag", {
+    Tag = db.define("tag", {
         tag_id: {type: Sequelize.STRING, primaryKey: true},
         tag_name: Sequelize.STRING,
         project_id: {
@@ -75,14 +81,14 @@ function define_model(db) {
     });
 
     // define flashcard
-    const Flashcard = db.define("flashcard", {
+    Flashcard = db.define("flashcard", {
         flashcard_id: {type: Sequelize.STRING, primaryKey: true},
         flashcard_title: Sequelize.TEXT,
         flashcard_content: Sequelize.TEXT
     });
 
     // define link
-    const Link = db.define("link", {});
+    Link = db.define("link", {});
     Flashcard.belongsToMany(Tag, {through: Link});
     Tag.belongsToMany(Flashcard, {through: Link});
 
@@ -128,7 +134,8 @@ read_credentials()
     .then(test_connection, console.error)
     .then(define_model, console.error);
 
-exports.getAllProjects = function() {
+exports.getAllProjects = function(username) {
+    Project.findAll().then
 }
 
 exports.getProject = function(pid) {
