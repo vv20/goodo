@@ -183,6 +183,14 @@ exports.getFlashcard = function(pid, fid) {
     });
 }
 
+exports.gatAllFlashcards = function(pid) {
+    return Flashcard.findAll({
+        where: {
+            project_id: pid
+        }
+    });
+}
+
 exports.makeProject = function(username, name) {
     return Project.findOrCreate({
         where: {project_name: name},
