@@ -19,6 +19,41 @@ router.get('/:id', function (req, res, next) {
     });
 });
 
+function getNodes(project, tagList, flashcardList) {
+    const nodes = [];
+    nodes.push({
+        id: `project${project.id}`,
+        label: `Project\n${project.name}`,
+        color: '#7D8491',
+        margin: 20,
+        font: {size: 12, color: '#EAF0CE', face: 'arial'}
+    });
+
+    tagList
+        .map(tag => {
+            return {
+                id: `tag${tag.id}`,
+                label: `Tag\n\n${tag.name}`,
+                color: '#C0C5C1',
+                margin: 20,
+                font: {size: 12, color: '#574B60', face: 'arial'}
+            };
+        })
+        .forEach(e => nodes.push(e));
+    flashcardList
+        .map(flashcard => {
+            return {
+                id: `flashcard${flashcard.id}`,
+                label: `Flashcard\n\n\n${flashcard.title}\n${flashcard.content}`,
+                color: '#3F334D',
+                margin: 20,
+                font: {size: 12, color: '#EAF0CE', face: 'arial'}
+            };
+        })
+        .forEach(e => nodes.push(e));
+    return nodes;
+}
+
 const getGraph = (pid) => {
     return Promise.all([
         getTagList(pid),
@@ -37,38 +72,24 @@ const getGraph = (pid) => {
             const tagList = projectTagsFlashcards[1];
             const flashcardList = projectTagsFlashcards[2];
 
-            const nodes = [];
-            nodes.push({
-                id: `project${project.id}`,
-                label: project.name,
-                color: '#7D8491',
-                margin: 20,
-                font: {size: 12, color: '#EAF0CE', face: 'arial'}
-            });
+            const nodes = getNodes(project, tagList, flashcardList);
+            return nodes;
+        }).then(nodes => {
+            return Promise.all(
+                tagIds.map(getFlashCardsThatLink)
+            ).then(flashcardList => {
+                const edges = [];
 
-            tagList
-                .map(tag => {
-                    return {
-                        id: `tag${tag.id}`,
-                        label: tag.name,
-                        color: '#C0C5C1',
-                        margin: 20,
-                        font: {size: 12, color: '#574B60', face: 'arial'}
-                    };
-                })
-                .forEach(e => nodes.push(e));
-            flashcardList
-                .map(flashcard => {
-                    return {
-                        id: `flashcard${flashcard.id}`,
-                        label: `${flashcard.title}\n${flashcard.content}`,
-                        color: '#3F334D',
-                        margin: 20,
-                        font: {size: 12, color: '#EAF0CE', face: 'arial'}
-                    };
-                })
-                .forEach(e => nodes.push(e));
-            return (nodes);
+                for (let i = 0; i < tagIds.length; i++) {
+                    edges.push({from: `project${pid}`, to: `tag${tagIds[i]}`});
+                    const flashcards = flashcardList[i];
+                    for (let j = 0; j < flashcards.length; j++) {
+                        edges.push({from: `tag${tagIds[i]}`, to: `flashcard${flashcards[j]}`});
+                    }
+                }
+
+                return {nodes, edges};
+            })
         });
 
 
@@ -94,6 +115,11 @@ const getFlashCardList = (pid) => {
 const getFlashCardInfo = (fid) => {
     return Promise.resolve({id: fid, title: `title ${fid}`, content: `content ${fid}`});
 };
+
+const getFlashCardsThatLink = (tid) => {
+    return getFlashCardList("ssss");
+};
+
 const getOptions = () => {
     return Promise.resolve({
         autoResize: true,
@@ -106,4 +132,5 @@ const getOptions = () => {
         }
     });
 };
+
 module.exports = router;
