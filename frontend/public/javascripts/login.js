@@ -1,7 +1,6 @@
 window.onload = () => {
-    const backendPort = 3000;
-    const backendLogin = "/auth/login";
-    const backendSignup = "/auth/signup";
+    const backendLogin = "/login";
+    const backendSignup = "/signup";
     const signupHash = "#signup";
     const loginHash = "#login";
 
@@ -17,19 +16,19 @@ window.onload = () => {
         if (window.location.hash === signupHash) {
             signup_button.classList.add("active");
             login_button.classList.remove("active");
-            submit_form.attributes.getNamedItem("action").value = `${window.location.hostname}:${backendPort}${backendSignup}`;
+            submit_form.attributes.getNamedItem("action").value = backendSignup;
             submit_button.innerText = signUpText;
         }
 
         if (window.location.hash === loginHash || !window.location.hash){
             login_button.classList.add("active");
             signup_button.classList.remove("active");
-            submit_form.attributes.getNamedItem("action").value = `${window.location.hostname}:${backendPort}${backendLogin}`;
+            submit_form.attributes.getNamedItem("action").value = backendLogin;
             submit_button.innerText = logInText;
         }
     };
 
-    updateFields()
+    updateFields();
 
     window.onhashchange = updateFields;
 
