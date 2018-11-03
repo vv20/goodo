@@ -91,42 +91,8 @@ function define_model(db) {
     Link = db.define("link", {});
     Flashcard.belongsToMany(Tag, {through: Link});
     Tag.belongsToMany(Flashcard, {through: Link});
+    return db.sync({force:dev})
 
-    user_promise = new Promise((resolve, reject) => {
-        User.sync({force:dev}).then(() => {
-            resolve(User);
-        });
-    });
-
-    project_promise = new Promise((resolve, reject) => {
-        Project.sync({force:dev}).then(() => {
-            resolve();
-        });
-    });
-
-    tag_promise = new Promise((resolve, reject) => {
-        Tag.sync({force:dev}).then(() => {
-            resolve();
-        });
-    });
-    
-    link_promise = new Promise((resolve, reject) => {
-        Link.sync({force:dev}).then(() => {
-            resolve();
-        });
-    });
-    
-    flashcard_promise = new Promise((resolve, reject) => {
-        Flashcard.sync({force:dev}).then(() => {
-            resolve();
-        });
-    });
-
-    return user_promise
-        .then(project_promise)
-        .then(tag_promise)
-        .then(flashcard_promise)
-        .then(link_promise);
 }
 
 read_credentials()
@@ -135,19 +101,37 @@ read_credentials()
     .then(define_model, console.error);
 
 exports.getAllProjects = function(username) {
-    Project.findAll().then
+    return Project.findAll();
 }
 
 exports.getProject = function(pid) {
+    return Project.findAll({
+        where: {
+            project_id: pid
+        }
+    });
 }
 
 exports.getAllTags = function(pid) {
+    return Tag.findAll();
 }
 
 exports.getTag = function(pid, tid) {
+    return Tag.findAll({
+        where: {
+            project_id: pid,
+            tag_id: tid
+        }
+    });
 }
 
 exports.getFlashcardsByTag = function(pid, tid) {
+    return Flashcard.findAll({
+        where: {
+            project_id: pid,
+            tag_id: tid
+        }
+    });
 }
 
 exports.getFlashcard = function(pid, fid) {
