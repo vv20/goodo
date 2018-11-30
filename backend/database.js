@@ -47,15 +47,6 @@ function test_connection(db) {
 }
 
 function define_model(db) {
-    // define user
-    User = db.define("user", {
-        username: {
-            type: Sequelize.STRING, 
-            primaryKey: true
-        },
-        password: Sequelize.STRING
-    });
-
     // define project
     Project = db.define("project", {
         project_id: {
@@ -63,15 +54,7 @@ function define_model(db) {
             primaryKey: true,
             autoIncrement: true
         },
-        project_name: Sequelize.STRING,
-        playlist_id: Sequelize.STRING,
-        username: {
-            type: Sequelize.STRING,
-            references: {
-                model: User,
-                key: "username"
-            }
-        }
+        project_name: Sequelize.STRING
     });
 
     // define tag
@@ -130,12 +113,8 @@ exports.getAll = function() {
     return Promise.all(promises);
 }
 
-exports.getAllProjects = function(username) {
-    return Project.findAll({
-        where: {
-            username: username
-        }
-    });
+exports.getAllProjects = function() {
+    return Project.findAll();
 }
 
 exports.getProject = function(pid) {
@@ -199,13 +178,11 @@ exports.gatAllFlashcards = function(pid) {
     });
 }
 
-exports.makeProject = function(username, name) {
+exports.makeProject = function(name) {
     return Project.findOrCreate({
         where: {project_name: name},
         defaults: {
-            project_name:name,
-            username: username,
-            playlist_id: null
+            project_name:name
         }
     });
 }
@@ -248,15 +225,4 @@ exports.linkProjectToPlaylist = function(pid, playlist_id) {
             playlist_id: playlist_id
         });
     });
-}
-
-exports.signup = function (username, password) {
-    return User.create({
-        username: username,
-        password: password
-    })
-}
-
-exports.getUser  = function (username) {
-    return User.findById(username);
 }
