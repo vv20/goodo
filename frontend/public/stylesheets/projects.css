@@ -1,0 +1,7 @@
+.panel-clickable[data-href]{
+    cursor: pointer !important;
+}
+
+.panel-info:hover > .panel-heading {
+    background-color: lightskyblue !important;
+}

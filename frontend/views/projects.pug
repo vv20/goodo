@@ -1,0 +1,25 @@
+extends layout
+include templates/project
+
+append head
+    link(rel='stylesheet', href='/stylesheets/projects.css')
+
+block content
+    .container
+        h1.text-center Your Projects
+        br
+        .projects
+            - var numProjects = 1
+            case numProjects
+                when 0
+                    h1.text-center You appear to have no projects
+                    br
+                default
+                    // Get all projects from backend, and put into project mixins w/ j
+                    +project(1, "Project 1", 10, 100)
+                    +project(2, "Project 2", 10, 100)
+                    +project(3, "Project 3", 10, 100)
+                    +project(4, "Project 4", 10, 100)
+
+append scripts
+    script(type='text/javascript', src='/javascripts/project.js')

@@ -1,0 +1,17 @@
+.vertical-center {
+    min-height: 80%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 80vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+}
+.login_boi {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+#submit_button {
+    min-width: 80px;
+    width: 80px;
+}
