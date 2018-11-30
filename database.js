@@ -11,7 +11,7 @@ var Link;
 function set_up_db() {
     return new Promise((resolve, reject) => {
         db = new Sequelize("null", "null", "null", {
-            dialect: "mysql",
+            dialect: "sqlite",
             storage: "goodo.sqlite"
         });
         resolve(db);
@@ -85,8 +85,7 @@ function define_model(db) {
 
 }
 
-read_credentials()
-    .then(set_up_db, console.error)
+set_up_db()
     .then(test_connection, console.error)
     .then(define_model, console.error);
 
