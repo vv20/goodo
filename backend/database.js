@@ -3,31 +3,16 @@ var fs = require("fs");
 var db;
 const dev = false;
 
-var User;
 var Project;
 var Tag;
 var Flashcard;
 var Link;
 
-function read_credentials() {
+function set_up_db() {
     return new Promise((resolve, reject) => {
-        fs.readFile("db_credentials.json", (err, data) => {
-            if (err) reject(err);
-            resolve(data);
-        });
-    });
-}
-
-function set_up_db(db_credentials) {
-    db_data = JSON.parse(db_credentials);
-    username = db_data.username;
-    password = db_data.password;
-    host = db_data.host;
-    db_name = db_data.db_name;
-    return new Promise((resolve, reject) => {
-        db = new Sequelize(db_name, username, password, {
-            host: host,
-            dialect: "mysql"
+        db = new Sequelize("null", "null", "null", {
+            dialect: "mysql",
+            storage: "goodo.sqlite"
         });
         resolve(db);
     });
