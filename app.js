@@ -24,22 +24,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /* GET index page */
 app.get('/', (req, res, next) => {
-    res.render('index', { title: 'Oh BABBBY' });
+    res.render('index', { title: 'GoodO' });
 });
 
-/* GET data dump */
-app.get('/alldata', function(req, res, next) {
-    database.getAll().then(function(data) {
-        res.send(data);
-    }).catch(function(err) {
-        next(err);
-    });
-});
-
-/* GET all projects */
-app.get('/project/all', function(req, res, next) {
+/* GET project page */
+app.get("/project/all", (req, res, next) => {
     database.getAllProjects().then(function(projects) {
-        res.send(projects);
+        console.log(projects);
+        res.render("projects", {
+            projects: projects
+        });
     }).catch(function (err) {
         next(err);
     });

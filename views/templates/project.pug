@@ -1,5 +1,3 @@
-mixin project(projectID, projectName, numTags, numFlashCards)
+mixin project(projectID, projectName)
     .panel-clickable(data-href="/project/" + projectID)
         +panel-info(projectName)
-            p Number of Tags: #{numTags}
-            p Number of Flashcards: #{numFlashCards}
